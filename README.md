@@ -36,3 +36,9 @@ RA 6924106672 / Renan da Cruz Santos
 
 Me. Vito Rodrigues Franzosi
 
+# Passo a Passo:
+
+1 - Salve o projeto na raiz do computador C:
+2 - Crie uma pasta nomeada de "sqlite"
+3 - Em seguida o projeto já está pronto para ser utilizado, clone o repositório para essa pasta gerada na raiz do computador para que não haja erros!
+OBS: Em caso de falhas, delete o banco de dados baixado junto com o código java, rode o main novamente e o bando de dados será gerado automaticamente.
