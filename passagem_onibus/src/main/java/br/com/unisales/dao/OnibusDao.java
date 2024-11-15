@@ -53,46 +53,87 @@ public class OnibusDao {
     public String alterar(Onibus onibus) {
         try {
             EntityManager em = this.emf.createEntityManager();
+            // Cria um EntityManager para gerenciar as operações de persistência.
+
             em.getTransaction().begin();
+            // Inicia uma transação.
+
             em.merge(onibus);
+            // Atualiza o objeto Onibus no banco de dados.
+
             em.getTransaction().commit();
+            // Confirma a transação, efetivando as alterações.
+
             em.close();
+            // Fecha o EntityManager.
+
             return "Ônibus alterado com sucesso!";
+            // Retorna uma mensagem de sucesso se a operação for concluída sem erros.
         } catch (Exception e) {
             System.err.println(e.getMessage());
             e.printStackTrace();
+            // Imprime a mensagem de erro e a pilha de exceções no console.
+
             return "Erro ao alterar ônibus!";
+            // Retorna uma mensagem de erro se ocorrer alguma exceção.
         }
     }
 
     public String excluir(Long id) {
         try {
             EntityManager em = this.emf.createEntityManager();
+            // Cria um EntityManager para gerenciar as operações de persistência.
+
             em.getTransaction().begin();
+            // Inicia uma transação.
+
             Onibus onibus = em.find(Onibus.class, id);
+            // Busca um objeto Onibus pelo seu ID.
+
             if (onibus != null) {
                 em.remove(onibus);
+                // Remove o objeto Onibus do banco de dados se ele existir.
+
                 em.getTransaction().commit();
+                // Confirma a transação, efetivando a remoção.
+
                 em.close();
+                // Fecha o EntityManager.
+
                 return "Ônibus excluído com sucesso!";
+                // Retorna uma mensagem de sucesso se a operação for concluída sem erros.
             } else {
                 em.getTransaction().rollback();
+                // Reverte a transação se o objeto Onibus não for encontrado.
+
                 em.close();
+                // Fecha o EntityManager.
+
                 return "Ônibus não encontrado!";
+                // Retorna uma mensagem indicando que o objeto Onibus não foi encontrado.
             }
         } catch (Exception e) {
             System.err.println(e.getMessage());
             e.printStackTrace();
+            // Imprime a mensagem de erro e a pilha de exceções no console.
+
             return "Erro ao excluir ônibus!";
+            // Retorna uma mensagem de erro se ocorrer alguma exceção.
         }
     }
 
     public List<Onibus> listar() {
         EntityManager em = this.emf.createEntityManager();
+        // Cria um EntityManager para gerenciar as operações de persistência.
+
         try {
             return em.createQuery("SELECT o FROM Onibus o", Onibus.class).getResultList();
+            // Executa uma consulta JPQL para listar todos os objetos Onibus.
+
         } finally {
             em.close();
+            // Fecha o EntityManager, garantindo que ele seja fechado mesmo em caso de
+            // exceção.
         }
     }
 }
