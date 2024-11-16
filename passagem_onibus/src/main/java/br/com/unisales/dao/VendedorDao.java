@@ -83,4 +83,9 @@ public class VendedorDao {
         }
     }
 
+    public String excluir(Long id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'excluir'");
+    }
+
 }

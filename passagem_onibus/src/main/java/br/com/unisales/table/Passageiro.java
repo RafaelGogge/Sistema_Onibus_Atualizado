@@ -39,8 +39,15 @@ public class Passageiro {
     private TipoUsuario tipoUsuario;
 
     public void setCelular(String nextLine) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'setCelular'");
+    }
+
+    public void setLocalPartida(String nextLine) {
+        throw new UnsupportedOperationException("Unimplemented method 'setLocalPartida'");
+    }
+
+    public void setLocalDestino(String nextLine) {
+        throw new UnsupportedOperationException("Unimplemented method 'setLocalDestino'");
     }
 
 }
