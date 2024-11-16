@@ -7,7 +7,7 @@ import java.util.List;
 // Importa as classes OnibusDao e Onibus, que são necessárias para os métodos dessa classe.
 
 public class OnibusService {
-    private OnibusDao dao;
+    private final  OnibusDao dao;
     // Declara um objeto privado OnibusDao que será usado para interagir com a
     // camada de persistência.
 

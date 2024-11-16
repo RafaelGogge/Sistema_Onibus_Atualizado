@@ -1,9 +1,10 @@
 package br.com.unisales.service;
 // Define o pacote onde a classe AssentoService está localizada.
 
+import java.util.List;
+
 import br.com.unisales.dao.AssentoDao;
 import br.com.unisales.table.Assento;
-import java.util.List;
 // Importa as classes AssentoDao e Assento, que são necessárias para os métodos dessa classe.
 
 public class AssentoService {
