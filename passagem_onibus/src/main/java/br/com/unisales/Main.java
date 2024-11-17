@@ -60,8 +60,8 @@ public class Main {
         // Criando e salvando novos assentos
         System.out.println("\n=== CADASTRO DE ASSENTOS ===");
 
-        Assento assento1 = new Assento(null, 20, onibus1);
-        Assento assento2 = new Assento(null, 25, onibus1);
+        Assento assento1 = new Assento();
+        Assento assento2 = new Assento();
         System.out.println("Inserir e salvar novo assento: " + aservice.salvar(assento1));
         System.out.println("Inserir e salvar novo assento: " + aservice.salvar(assento2));
 
