@@ -38,9 +38,9 @@ Me. Vito Rodrigues Franzosi
 
 # Passo a Passo:
 
-1 - Salve o projeto na raiz do computador C:
+1 - Crie uma pasta nomeada de "sqlite" na raiz do computador "C:"
 
-2 - Crie uma pasta nomeada de "sqlite"
+2 - Salve o projeto na raiz do computador C: dentro da pasta que foi criada no passo anterior
 
 3 - Em seguida o projeto já está pronto para ser utilizado, clone o repositório para essa pasta gerada na raiz do computador para que não haja erros!
 
