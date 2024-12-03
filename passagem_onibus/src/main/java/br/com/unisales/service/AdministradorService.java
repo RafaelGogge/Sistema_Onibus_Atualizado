@@ -6,8 +6,6 @@ import java.util.Scanner;
 import br.com.unisales.table.Administrador;
 import br.com.unisales.table.Passageiro;
 import br.com.unisales.table.Onibus;
-import br.com.unisales.table.Assento;
-import br.com.unisales.entities.TipoUsuario;
 import br.com.unisales.dao.AdministradorDao;
 import br.com.unisales.table.Vendedor;
 
@@ -44,17 +42,18 @@ public class AdministradorService {
         passageiro.setEmail(sc.nextLine());
         System.out.println("Digite a senha do passageiro: ");
         passageiro.setSenha(sc.nextLine());
-        passageiro.setTipoUsuario(TipoUsuario.PASSAGEIRO);
+
 
         PassageiroService passageiroService = new PassageiroService();
         passageiroService.salvar(passageiro);
         System.out.println("Passageiro cadastrado com sucesso!");
     }
 
-    public void cadastrarOnibus(Onibus onibus) {
+    public void cadastrarOnibus() {
+        Onibus onibus = new Onibus();
         System.out.println("Digite a placa do onibus: ");
         onibus.setPlaca(sc.nextLine());
-        System.out.println("Digite o modelo do onibus: ");
+        System.out.println("Digite a quantidade de assentos: ");
         onibus.setQuantidadeAssento(sc.nextInt());
         sc.nextLine();
 
@@ -62,17 +61,6 @@ public class AdministradorService {
         onibusService.salvar(onibus);
 
         System.out.println("Onibus cadastrado com sucesso!");
-    }
-
-    public void cadastrarAssento(Assento assento) {
-        System.out.println("Digite o numero do assento: ");
-        assento.setNumero(sc.nextInt());
-        sc.nextLine();
-
-        AssentoService assentoService = new AssentoService();
-        assentoService.salvar(assento);
-
-        System.out.println("Assento cadastrado com sucesso!");
     }
 
     public void cadastrarAdministrador(Administrador administrador) {
@@ -84,7 +72,7 @@ public class AdministradorService {
         administrador.setEmail(sc.nextLine());
         System.out.println("Digite a senha do administrador: ");
         administrador.setSenha(sc.nextLine());
-        administrador.setTipoUsuario(TipoUsuario.ADMINISTRADOR);
+
 
         AdministradorService administradorService = new AdministradorService();
         administradorService.salvar(administrador);
@@ -100,7 +88,7 @@ public class AdministradorService {
         vendedor.setEmail(sc.nextLine());
         System.out.println("Digite a senha do vendedor: ");
         vendedor.setSenha(sc.nextLine());
-        vendedor.setTipoUsuario(TipoUsuario.VENDEDOR);
+
 
         VendedorService vendedorService = new VendedorService();
         vendedorService.salvar(vendedor);

@@ -1,15 +1,15 @@
 package br.com.unisales.dao;
 
 import br.com.unisales.table.Passagem;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class PassagemDao {
-    private static final Logger LOGGER = Logger.getLogger(PassagemDao.class.getName());
-    private static final String PERSISTENCE_UNIT_NAME = "onibusPUSQLite";
+
+    private static final String PERSISTENCE_UNIT_NAME = "your-persistence-unit-name"; // Substitua pelo nome da unidade de persistência
     private final EntityManagerFactory emf;
     private final EntityManager em;
 
@@ -18,6 +18,7 @@ public class PassagemDao {
         this.em = emf.createEntityManager();
     }
 
+    // Método para salvar uma passagem
     public String salvar(Passagem passagem) {
         try {
             em.getTransaction().begin();
@@ -26,11 +27,11 @@ public class PassagemDao {
             return "Passagem salva com sucesso!";
         } catch (Exception e) {
             em.getTransaction().rollback();
-            LOGGER.severe(e.getMessage());
             return "Erro ao salvar passagem: " + e.getMessage();
         }
     }
 
+    // Método para alterar uma passagem
     public String alterar(Passagem passagem) {
         try {
             em.getTransaction().begin();
@@ -39,11 +40,11 @@ public class PassagemDao {
             return "Passagem alterada com sucesso!";
         } catch (Exception e) {
             em.getTransaction().rollback();
-            LOGGER.severe(e.getMessage());
             return "Erro ao alterar passagem: " + e.getMessage();
         }
     }
 
+    // Método para excluir uma passagem pelo ID
     public String excluir(Long id) {
         try {
             em.getTransaction().begin();
@@ -57,20 +58,21 @@ public class PassagemDao {
             }
         } catch (Exception e) {
             em.getTransaction().rollback();
-            LOGGER.severe(e.getMessage());
             return "Erro ao excluir passagem: " + e.getMessage();
         }
     }
 
+    // Método para listar todas as passagens
     public List<Passagem> listar() {
         try {
             return em.createQuery("SELECT p FROM Passagem p", Passagem.class).getResultList();
         } catch (Exception e) {
-            LOGGER.severe(e.getMessage());
+            System.out.println("Erro ao listar passagens: " + e.getMessage());
             return List.of();
         }
     }
 
+    // Fechar o EntityManager e o EntityManagerFactory
     public void fechar() {
         if (em.isOpen()) {
             em.close();

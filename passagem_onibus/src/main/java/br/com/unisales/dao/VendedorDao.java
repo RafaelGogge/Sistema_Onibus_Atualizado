@@ -1,16 +1,16 @@
 package br.com.unisales.dao;
 
+import java.util.List;
+
 import br.com.unisales.table.Passageiro;
 import br.com.unisales.table.Vendedor;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import java.util.List;
-import java.util.logging.Logger;
+import jakarta.persistence.PersistenceException;
 
 public class VendedorDao {
 
-    private static final Logger LOGGER = Logger.getLogger(VendedorDao.class.getName());
     private EntityManagerFactory emf;
 
     public VendedorDao() {
@@ -24,11 +24,11 @@ public class VendedorDao {
             em.persist(vendedor);
             em.getTransaction().commit();
             return "Vendedor salvo com sucesso!";
-        } catch (Exception e) {
+        } catch (PersistenceException e) {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-            LOGGER.severe(e.getMessage());
+            System.err.println("Erro de persistência: " + e.getMessage());
             e.printStackTrace();
             return "Erro ao salvar Vendedor!";
         } finally {
@@ -36,7 +36,6 @@ public class VendedorDao {
         }
     }
 
-    // Método para o vendedor alterar o cadastro do passageiro
     public String alterar(Passageiro passageiro) {
         EntityManager em = this.emf.createEntityManager();
         try {
@@ -44,11 +43,11 @@ public class VendedorDao {
             em.merge(passageiro);
             em.getTransaction().commit();
             return "Passageiro alterado com sucesso!";
-        } catch (Exception e) {
+        } catch (PersistenceException e) {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-            LOGGER.severe(e.getMessage());
+            System.err.println("Erro de persistência: " + e.getMessage());
             e.printStackTrace();
             return "Erro ao alterar Passageiro!";
         } finally {
@@ -56,7 +55,6 @@ public class VendedorDao {
         }
     }
 
-    // Método para o vendedor salvar o passageiro que não fez o próprio cadastro
     public String cadastrarPassageiro(Passageiro passageiro) {
         EntityManager em = this.emf.createEntityManager();
         try {
@@ -64,11 +62,11 @@ public class VendedorDao {
             em.persist(passageiro);
             em.getTransaction().commit();
             return "Passageiro salvo com sucesso!";
-        } catch (Exception e) {
+        } catch (PersistenceException e) {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-            LOGGER.severe(e.getMessage());
+            System.err.println("Erro de persistência: " + e.getMessage());
             e.printStackTrace();
             return "Erro ao salvar Passageiro!";
         } finally {
@@ -97,11 +95,11 @@ public class VendedorDao {
             } else {
                 return "Vendedor não encontrado!";
             }
-        } catch (Exception e) {
+        } catch (PersistenceException e) {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-            LOGGER.severe(e.getMessage());
+            System.err.println("Erro de persistência: " + e.getMessage());
             e.printStackTrace();
             return "Erro ao excluir Vendedor!";
         } finally {

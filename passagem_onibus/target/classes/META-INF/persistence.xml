@@ -1,18 +1,19 @@
 <persistence xmlns="https://jakarta.ee/xml/ns/persistence" version="3.0">
     <!-- INICIO DA CONEXÃO COM O BANCO DE DADOS SQLITE -->
     <persistence-unit name="onibusPUSQLite">
-        <class>br.com.unisales.table.Onibus</class>
-        <class>br.com.unisales.table.Assento</class>
-        <class>br.com.unisales.table.Vendedor</class>
-        <class>br.com.unisales.table.Passagem</class>
-        <class>br.com.unisales.table.Administrador</class>
-        <class>br.com.unisales.table.Passageiro</class>
+    <class>br.com.unisales.table.Administrador</class>
+    <class>br.com.unisales.table.Assento</class>
+    <class>br.com.unisales.table.Onibus</class>
+    <class>br.com.unisales.table.Passageiro</class>
+    <class>br.com.unisales.table.Passagem</class>
+    <class>br.com.unisales.table.Vendedor</class>
         <properties>
-            <!-- Configurações do banco de dados SQLite (propriedades do JDBC) -->
+            <!-- Configurações do banco de dados sqlite (propriedades do JDBC)-->
             <property name="jakarta.persistence.jdbc.driver" value="org.sqlite.JDBC" />
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:sqlite:C:/sqlite/db/onibus_db.db" />
+            <property name="jakarta.persistence.jdbc.url"
+                value="jdbc:sqlite:C:/sqlite/db/onibus_db.db" />
             <property name="jakarta.persistence.schema-generation.database.action" value="update" />
-            
+
             <!-- Configurações do Hibernate -->
             <property name="hibernate.dialect" value="org.hibernate.community.dialect.SQLiteDialect" />
             <property name="hibernate.show_sql" value="true" />
@@ -24,21 +25,22 @@
 
     <!-- INICIO DA CONEXÃO COM O BANCO DE DADOS MYSQL -->
     <!-- <persistence-unit name="onibusPUMySQL">
-        <class>br.com.unisales.table.Onibus</class>
+            <class>br.com.unisales.table.Onibus</class>
         <properties> -->
-            <!-- Configurações do banco de dados MySQL -->
-            <!-- <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/mydb" />
+    <!-- Configurações do banco de dados mysql -->
+    <!-- <property name="jakarta.persistence.jdbc.url"
+            value="jdbc:mysql://localhost:3306/mydb" />
             <property name="jakarta.persistence.jdbc.user" value="root" />
             <property name="jakarta.persistence.jdbc.password" value="password" />
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" /> -->
 
-            <!-- Configurações do Hibernate -->
-            <!-- <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+    <!-- Configurações do Hibernate -->
+    <!-- <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
             <property name="hibernate.hbm2ddl.auto" value="update" />
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />
             <property name="hibernate.connection.charSet" value="UTF-8" /> -->
-        <!-- </properties>
+    <!-- </properties>
     </persistence-unit> -->
     <!-- FIM DA CONEXÃO COM O BANCO DE DADOS MYSQL -->
 </persistence>

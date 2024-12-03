@@ -7,9 +7,7 @@ import br.com.unisales.dao.VendedorDao;
 import br.com.unisales.table.Passageiro;
 import br.com.unisales.table.Passagem;
 import br.com.unisales.table.Vendedor;
-import br.com.unisales.entities.TipoUsuario;
 
-// Criando a classe vendedor
 public class VendedorService {
 
     private final VendedorDao dao;
@@ -23,10 +21,6 @@ public class VendedorService {
         return this.dao.salvar(vendedor);
     }
 
-    public String alterar(Passageiro passageiro) {
-        return this.dao.alterar(passageiro);
-    }
-
     public String excluir(Long id) {
         return this.dao.excluir(id);
     }
@@ -35,108 +29,79 @@ public class VendedorService {
         return this.dao.listar();
     }
 
+
     public void cadastrarPassageiro() {
-        Passageiro passageiro = new Passageiro();
         try {
-            System.out.println("DIGITE O CELULAR DO PASSAGEIRO: ");
-            passageiro.setCelular(sc.nextLine());
-    
-            System.out.println("DIGITE O CPF DO PASSAGEIRO: ");
-            String cpf = sc.nextLine();
-            if (cpf.matches("\\d{11}")) { // Validação simples para 11 dígitos numéricos
-                passageiro.setCpf(cpf);
-            } else {
-                System.out.println("CPF inválido. Por favor, digite um CPF com 11 dígitos.");
-                return;
-            }
-    
-            System.out.println("DIGITE O EMAIL DO PASSAGEIRO: ");
-            String email = sc.nextLine();
-            if (email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
-                passageiro.setEmail(email);
-            } else {
-                System.out.println("E-mail inválido. Por favor, digite um e-mail válido.");
-                return;
-            }
-    
-            System.out.println("DIGITE O LOCAL DE DESTINO DO PASSAGEIRO: ");
-            passageiro.setLocalDestino(sc.nextLine());
-    
-            System.out.println("DIGITE O LOCAL DE PARTIDA DO PASSAGEIRO: ");
-            passageiro.setLocalPartida(sc.nextLine());
-    
-            System.out.println("DIGITE O NOME DO PASSAGEIRO: ");
-            String nome = sc.nextLine();
-            if (nome.matches("[a-zA-Z\\s]+")) {
-                passageiro.setNome(nome);
-            } else {
-                System.out.println("Nome inválido. Por favor, digite apenas letras e espaços.");
-                return;
-            }
-    
-            System.out.println("DIGITE A SENHA DO PASSAGEIRO: ");
-            String senha = sc.nextLine();
-            if (!senha.isEmpty()) {
-                passageiro.setSenha(senha);
-            } else {
-                System.out.println("Senha não pode ser vazia.");
-                return;
-            }
-    
-            System.out.println("DIGITE O SEXO DO PASSAGEIRO: (M/F) ");
-            String inputSexo = sc.nextLine().toUpperCase();
-            if ("M".equals(inputSexo) || "F".equals(inputSexo)) {
-                passageiro.setSexo(inputSexo);
-            } else {
-                System.out.println("Sexo inválido. Por favor, digite 'M' para masculino ou 'F' para feminino.");
-                return;
-            }
-    
-            System.out.println("DIGITE O TIPO DE USUÁRIO (ADMINISTRADOR/PASSAGEIRO): ");
-            String tipoUsuarioInput = sc.nextLine().toUpperCase();
-            try {
-                TipoUsuario tipoUsuario = TipoUsuario.valueOf(tipoUsuarioInput);
-                passageiro.setTipoUsuario(tipoUsuario);
-            } catch (IllegalArgumentException e) {
-                System.out.println("Tipo de usuário inválido. Por favor, digite 'ADMINISTRADOR' ou 'PASSAGEIRO'.");
-                return;
-            }
-    
-            // Salvar passageiro
-            System.out.println(this.dao.cadastrarPassageiro(passageiro));
+            Passageiro passageiro = new Passageiro(); 
+            System.out.println("Digite o nome do passageiro: ");
+            passageiro.setNome(sc.nextLine());
+
+            System.out.println("Digite o sexo do passageiro: ");
+            passageiro.setSexo(sc.nextLine());
+
+            System.out.println("Digite o email do passageiro: ");
+            passageiro.setEmail(sc.nextLine());
+
+            System.out.println("Digite a senha do passageiro: ");
+            passageiro.setSenha(sc.nextLine());
+
+            System.out.println("Digite o cpf do passageiro: ");
+            passageiro.setCpf(sc.nextLine());
+
+            
+            PassageiroService passageiroService = new PassageiroService();
+            passageiroService.salvar(passageiro);
+            System.out.println("Passageiro cadastrado com sucesso!");
         } catch (Exception e) {
             System.out.println("Erro ao cadastrar passageiro: " + e.getMessage());
-            e.printStackTrace();
         }
     }
-    
 
-    public String venderPassagem(Passagem passagem) {
-        System.out.println("DIGITE O NOME DO PASSAGEIRO: ");
-        String nome = sc.nextLine();
+    public void venderPassagem(Passagem passagem) {
         Passageiro passageiro = new Passageiro();
-        if (nome.matches("[a-zA-Z\\s]+")) { // Permitir espaços no nome
-            passageiro.setNome(nome);
-        } else {
-            System.out.println("Nome inválido. Por favor, digite apenas letras.");
-            return "Erro ao vender passagem!";
+        try {
+            System.out.println("DIGITE O NOME DO PASSAGEIRO: ");
+            passageiro.setNome(sc.nextLine());
+
+            System.out.println("DIGITE O SEXO DO PASSAGEIRO: (M/F) ");
+            passageiro.setSexo(sc.nextLine());
+
+            System.out.println("DIGITE O EMAIL DO PASSAGEIRO: ");
+            passageiro.setEmail(sc.nextLine());
+
+            System.out.println("DIGITE SEU CPF: ");
+            passageiro.setCpf(sc.nextLine());
+
+            System.out.println("DIGITE SEU LOCAL DE ORIGEM: ");
+            passagem.setOrigem(sc.nextLine());
+
+            System.out.println("DIGITE SEU LOCAL DE DESTINO: ");
+            passagem.setDestino(sc.nextLine());
+
+            System.out.println("DIGITE A DATA DA VIAGEM (dd/mm/aaaa): ");
+            passagem.setDataViagem(sc.nextLine());
+
+            System.out.println("DIGITE O PREÇO DA PASSAGEM: ");
+            passagem.setPreco(Double.parseDouble(sc.nextLine()));
+
+            System.out.println("DIGITE O NÚMERO DO ASSENTO: ");
+            passagem.setNumeroAssento(Integer.parseInt(sc.nextLine()));
+
+            PassagemService passagemService = new PassagemService();
+            passagemService.salvar(passagem);
+            System.out.println("Passagem comprada com sucesso!");
+        } catch (NumberFormatException e) {
+            System.out.println("Erro de formato numérico: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Erro ao comprar passagem: " + e.getMessage());
         }
-
-        System.out.println("DIGITE O LOCAL DE PARTIDA DO PASSAGEIRO: ");
-        passageiro.setLocalPartida(sc.nextLine());
-
-        System.out.println("DIGITE O LOCAL DE DESTINO DO PASSAGEIRO: ");
-        passageiro.setLocalDestino(sc.nextLine());
-
-        System.out.println("DIGITE A DATA E O HORÁRIO DE PARTIDA DO PASSAGEIRO: ");
-        passagem.setDataViagem(sc.nextLine()); // Alterado para definir a data da viagem na passagem
-
-        PassagemService passagemService = new PassagemService();
-        passagemService.salvar(passagem);
-        return "Passagem vendida com sucesso!";
     }
 
     public void listarPassagem() {
-        System.out.println(this.dao.listar());
+        System.out.println(this.listar());
+    }
+
+    public void fecharScanner() {
+        sc.close();
     }
 }

@@ -1,10 +1,16 @@
 package br.com.unisales.table;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import br.com.unisales.entities.TipoUsuario;
+
+
 
 @Data
 @NoArgsConstructor
@@ -28,7 +34,5 @@ public class Administrador {
     @Column(name = "senha", nullable = false, length = 10, unique = true)
     private String senha;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "tipoUsuario", nullable = false)
-    private TipoUsuario tipoUsuario;
+ 
 }

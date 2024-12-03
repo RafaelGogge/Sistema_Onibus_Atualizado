@@ -5,16 +5,14 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class AdministradorDao {
-    private static final Logger LOGGER = Logger.getLogger(AdministradorDao.class.getName());
     private EntityManagerFactory emf;
 
     public AdministradorDao() {
         this.emf = Persistence.createEntityManagerFactory("onibusPUSQLite");
     }
-    
+
     public String salvar(Administrador administrador) {
         EntityManager em = this.emf.createEntityManager();
         try {
@@ -26,7 +24,8 @@ public class AdministradorDao {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-            LOGGER.severe(e.getMessage());
+            System.err.println(e.getMessage());
+            e.printStackTrace();
             return "Erro ao salvar administrador!";
         } finally {
             em.close();
@@ -44,7 +43,8 @@ public class AdministradorDao {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-            LOGGER.severe(e.getMessage());
+            System.err.println(e.getMessage());
+            e.printStackTrace();
             return "Erro ao alterar ADM!";
         } finally {
             em.close();
@@ -68,7 +68,8 @@ public class AdministradorDao {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-            LOGGER.severe(e.getMessage());
+            System.err.println(e.getMessage());
+            e.printStackTrace();
             return "Erro ao excluir administrador!";
         } finally {
             em.close();

@@ -15,22 +15,27 @@ public class PassagemService {
         this.dao = new PassagemDao();
     }
 
+    // Método para salvar uma passagem
     public String salvar(Passagem passagem) {
         return this.dao.salvar(passagem);
     }
 
+    // Método para alterar uma passagem
     public String alterar(Passagem passagem) {
         return this.dao.alterar(passagem);
     }
 
+    // Método para excluir uma passagem pelo ID
     public String excluir(Long id) {
         return this.dao.excluir(id);
     }
 
+    // Método para listar todas as passagens
     public List<Passagem> listar() {
         return this.dao.listar();
     }
 
+    // Método para comprar uma passagem
     public void comprarPassagem(Passagem passagem) {
         System.out.println("DIGITE A ORIGEM: ");
         passagem.setOrigem(sc.nextLine());
@@ -43,9 +48,10 @@ public class PassagemService {
         System.out.println("DIGITE O NÚMERO DO ASSENTO: ");
         passagem.setNumeroAssento(Integer.parseInt(sc.nextLine()));
 
-        System.out.println(this.salvar(passagem));
+        System.out.println(this.salvar(passagem)); // Salva a passagem no banco de dados
     }
 
+    // Método para listar todas as passagens no console
     public void listarPassagens() {
         List<Passagem> passagens = this.listar();
         if (passagens.isEmpty()) {
