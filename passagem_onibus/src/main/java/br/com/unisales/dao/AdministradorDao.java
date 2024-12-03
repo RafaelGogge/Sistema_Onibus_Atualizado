@@ -5,8 +5,10 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class AdministradorDao {
+    private static final Logger LOGGER = Logger.getLogger(AdministradorDao.class.getName());
     private EntityManagerFactory emf;
 
     public AdministradorDao() {
@@ -24,8 +26,7 @@ public class AdministradorDao {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-            System.err.println(e.getMessage());
-            e.printStackTrace();
+            LOGGER.severe(e.getMessage());
             return "Erro ao salvar administrador!";
         } finally {
             em.close();
@@ -43,8 +44,7 @@ public class AdministradorDao {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-            System.err.println(e.getMessage());
-            e.printStackTrace();
+            LOGGER.severe(e.getMessage());
             return "Erro ao alterar ADM!";
         } finally {
             em.close();
@@ -68,8 +68,7 @@ public class AdministradorDao {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-            System.err.println(e.getMessage());
-            e.printStackTrace();
+            LOGGER.severe(e.getMessage());
             return "Erro ao excluir administrador!";
         } finally {
             em.close();

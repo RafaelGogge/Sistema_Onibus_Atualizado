@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import br.com.unisales.entities.TipoUsuario;
 
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

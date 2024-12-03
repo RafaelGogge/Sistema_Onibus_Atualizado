@@ -5,9 +5,10 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class PassageiroDao {
-
+    private static final Logger LOGGER = Logger.getLogger(PassageiroDao.class.getName());
     private EntityManagerFactory emf;
 
     public PassageiroDao() {
@@ -15,20 +16,15 @@ public class PassageiroDao {
     }
 
     public String salvar(Passageiro passageiro) {
-
         try {
-
             EntityManager em = this.emf.createEntityManager();
-
             em.getTransaction().begin();
             em.persist(passageiro);
-
             em.getTransaction().commit();
-
             em.close();
             return "Passageiro salvo com sucesso!";
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            LOGGER.severe(e.getMessage());
             e.printStackTrace();
             return "Erro ao salvar Passageiro!";
         }
@@ -43,7 +39,7 @@ public class PassageiroDao {
             em.close();
             return "Passageiro alterado com sucesso!";
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            LOGGER.severe(e.getMessage());
             e.printStackTrace();
             return "Erro ao alterar passageiro!";
         }
@@ -65,7 +61,7 @@ public class PassageiroDao {
                 return "Passageiro não encontrado!";
             }
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            LOGGER.severe(e.getMessage());
             e.printStackTrace();
             return "Erro ao excluir Passageiro!";
         }
@@ -79,5 +75,4 @@ public class PassageiroDao {
             em.close();
         }
     }
-
 }

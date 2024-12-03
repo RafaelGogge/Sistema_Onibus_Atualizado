@@ -1,77 +1,141 @@
 package br.com.unisales;
 
-import br.com.unisales.service.AssentoService;
-import br.com.unisales.service.OnibusService;
+import java.util.Scanner;
+
+import br.com.unisales.service.AdministradorService;
+import br.com.unisales.service.PassageiroService;
+import br.com.unisales.service.VendedorService;
+import br.com.unisales.table.Administrador;
 import br.com.unisales.table.Assento;
 import br.com.unisales.table.Onibus;
-import java.util.List;
+import br.com.unisales.table.Passageiro;
+import br.com.unisales.table.Passagem;
+import br.com.unisales.table.Vendedor;
 
 public class Main {
     public static void main(String[] args) {
-        
-        OnibusService oservice = new OnibusService();
-        AssentoService aservice = new AssentoService();
-        
+        VendedorService vservice = new VendedorService();
+        PassageiroService psservice = new PassageiroService();
+        AdministradorService adservice = new AdministradorService();
 
-        // Cadastrando e salvando um novo ônibus
-        System.out.println("\n=== CADASTRO DE ÔNIBUS ===");
+        Scanner sc = new Scanner(System.in);
 
-        Onibus onibus1 = new Onibus(null, "ABC1234", 50);
-        System.out.println("Inserir novo ônibus: " + oservice.salvar(onibus1));
+        try {
+            boolean continuar = true;
+            while (continuar) {
+                exibirMenuPrincipal();
+                int opcao = sc.nextInt();
+                sc.nextLine(); // Consumir nova linha
 
-        Onibus onibus2 = new Onibus(null, "DEF5678", 40);
-        System.out.println("Inserir novo ônibus: " + oservice.salvar(onibus2));
-
-
-
-        // Alterando dados do ônibus -- VERIFICAR DEPOIS
-
-        System.out.println("\n=== ALTERAÇÃO DE ÔNIBUS ===");
-
-        onibus1.setPlaca("XYZ5678");
-        onibus1.setQuantidadeAssento(45);
-
-        System.out.println("Alterar dados do ônibus: " + oservice.alterar(onibus1) + oservice.salvar(onibus1));
-
-        // VERIFICAR DEPOIS ALTERAÇÃO DE ONIBUS
-
-
-        // Excluindo dados do onibus
-        //System.out.println("\n=== EXCLUSÃO DE ÔNIBUS ===");
-
-        //System.out.println("Excluir ônibus: " + oservice.excluir(onibus2.getId()));
-
-        // Listando todos os ônibus
-
-        System.out.println("\n=== LISTA DE ÔNIBUS ===");
-
-        List<Onibus> onibusList = oservice.listar();
-        for (Onibus o : onibusList) {
-            System.out.println("Ônibus ID: " + o.getId() + ", Placa: " + o.getPlaca() + ", Quantidade de Assentos: "
-                    + o.getQuantidadeAssento());
+                switch (opcao) {
+                    case 1:
+                        menuVendedor(vservice, sc);
+                        break;
+                    case 2:
+                        menuPassageiro(psservice, sc);
+                        break;
+                    case 3:
+                        menuAdministrador(adservice, sc);
+                        break;
+                    case 0:
+                        continuar = false;
+                        System.out.println("Saindo...");
+                        break;
+                    default:
+                        System.out.println("Opção inválida! Por favor, tente novamente.");
+                }
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        } finally {
+            sc.close();
         }
+    }
 
-        /*
-         * 
-         * TRABALHANDO COM O ASSENTO
-         * 
-         */
+    private static void exibirMenuPrincipal() {
+        System.out.println("\nSelecione uma das opções abaixo para continuarmos:");
+        System.out.println("---------- 1 para Vendedor ----------");
+        System.out.println("---------- 2 para Passageiro ----------");
+        System.out.println("---------- 3 para Administrador ----------");
+        System.out.println("---------- 0 para Sair ----------");
+    }
 
-        // Criando e salvando novos assentos
-        System.out.println("\n=== CADASTRO DE ASSENTOS ===");
+    private static void menuVendedor(VendedorService vservice, Scanner sc) {
+        System.out.println("\n---------- MENU VENDEDOR ----------");
+        System.out.println("SELECIONE UMA DAS OPÇÕES");
+        System.out.println("1 - CADASTRAR PASSAGEIRO");
+        System.out.println("2 - VENDER PASSAGEM");
+        System.out.println("3 - LISTAR PASSAGEM");
 
-        Assento assento1 = new Assento();
-        Assento assento2 = new Assento();
-        System.out.println("Inserir e salvar novo assento: " + aservice.salvar(assento1));
-        System.out.println("Inserir e salvar novo assento: " + aservice.salvar(assento2));
+        int opcaoVendedor = sc.nextInt();
+        sc.nextLine(); // Consumir nova linha
 
-        // Listando todos os assentos
+        switch (opcaoVendedor) {
+            case 1:
+                vservice.cadastrarPassageiro();
+                break;
+            case 2:
+                vservice.venderPassagem(new Passagem());
+                break;
+            case 3:
+                vservice.listarPassagem();
+                break;
+            default:
+                System.out.println("Opção inválida! Por favor, tente novamente.");
+        }
+    }
 
-        System.out.println("\n=== LISTA DE ASSENTOS ===");
+    private static void menuPassageiro(PassageiroService psservice, Scanner sc) {
+        System.out.println("\n---------- MENU PASSAGEIRO ----------");
+        System.out.println("SELECIONE UMA DAS OPÇÕES");
+        System.out.println("1 - COMPRAR PASSAGEM");
+        System.out.println("2 - LISTAR PASSAGEM");
 
-        List<Assento> assentos = aservice.listar();
-        for (Assento a : assentos) {
-            System.out.println("Assento ID: " + a.getId() + ", Número do assento: " + a.getNumero());
+        int opcaoPassageiro = sc.nextInt();
+        sc.nextLine(); // Consumir nova linha
+
+        switch (opcaoPassageiro) {
+            case 1:
+                psservice.comprarPassagem(new Passagem());
+                break;
+            case 2:
+                psservice.listarPassagem(null);
+                break;
+            default:
+                System.out.println("Opção inválida! Por favor, tente novamente.");
+        }
+    }
+
+    private static void menuAdministrador(AdministradorService adservice, Scanner sc) {
+        System.out.println("\n---------- MENU ADMINISTRADOR ----------");
+        System.out.println("SELECIONE UMA DAS OPÇÕES");
+        System.out.println("1 - CADASTRAR VENDEDOR");
+        System.out.println("2 - CADASTRAR PASSAGEIRO");
+        System.out.println("3 - CADASTRAR ADMINISTRADOR");
+        System.out.println("4 - CADASTRAR ASSENTO");
+        System.out.println("5 - CADASTRAR ONIBUS");
+
+        int opcaoAdministrador = sc.nextInt();
+        sc.nextLine(); // Consumir nova linha
+
+        switch (opcaoAdministrador) {
+            case 1:
+                adservice.cadastrarVendedor(new Vendedor());
+                break;
+            case 2:
+                adservice.cadastrarPassageiro(new Passageiro());
+                break;
+            case 3:
+                adservice.cadastrarAdministrador(new Administrador());
+                break;
+            case 4:
+                adservice.cadastrarAssento(new Assento());
+                break;
+            case 5:
+                adservice.cadastrarOnibus(new Onibus());
+                break;
+            default:
+                System.out.println("Opção inválida! Por favor, tente novamente.");
         }
     }
 }

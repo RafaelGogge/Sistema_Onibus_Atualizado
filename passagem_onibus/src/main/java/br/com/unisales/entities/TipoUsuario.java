@@ -4,5 +4,4 @@ public enum TipoUsuario {
     PASSAGEIRO,
     VENDEDOR,
     ADMINISTRADOR
-
 }

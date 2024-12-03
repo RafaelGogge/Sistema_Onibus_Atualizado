@@ -6,9 +6,11 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class VendedorDao {
 
+    private static final Logger LOGGER = Logger.getLogger(VendedorDao.class.getName());
     private EntityManagerFactory emf;
 
     public VendedorDao() {
@@ -26,7 +28,7 @@ public class VendedorDao {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-            System.err.println(e.getMessage());
+            LOGGER.severe(e.getMessage());
             e.printStackTrace();
             return "Erro ao salvar Vendedor!";
         } finally {
@@ -34,7 +36,7 @@ public class VendedorDao {
         }
     }
 
-    // método para o vendedor alterar o cadastro do passageiro
+    // Método para o vendedor alterar o cadastro do passageiro
     public String alterar(Passageiro passageiro) {
         EntityManager em = this.emf.createEntityManager();
         try {
@@ -46,7 +48,7 @@ public class VendedorDao {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-            System.err.println(e.getMessage());
+            LOGGER.severe(e.getMessage());
             e.printStackTrace();
             return "Erro ao alterar Passageiro!";
         } finally {
@@ -54,7 +56,7 @@ public class VendedorDao {
         }
     }
 
-    // metodo para o vendedor salvar o passageiro que não fez o proprio cadastro
+    // Método para o vendedor salvar o passageiro que não fez o próprio cadastro
     public String cadastrarPassageiro(Passageiro passageiro) {
         EntityManager em = this.emf.createEntityManager();
         try {
@@ -66,7 +68,7 @@ public class VendedorDao {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-            System.err.println(e.getMessage());
+            LOGGER.severe(e.getMessage());
             e.printStackTrace();
             return "Erro ao salvar Passageiro!";
         } finally {
@@ -77,15 +79,33 @@ public class VendedorDao {
     public List<Vendedor> listar() {
         EntityManager em = this.emf.createEntityManager();
         try {
-            return em.createQuery("SELECT p FROM Vendedor p", Vendedor.class).getResultList();
+            return em.createQuery("SELECT v FROM Vendedor v", Vendedor.class).getResultList();
         } finally {
             em.close();
         }
     }
 
     public String excluir(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'excluir'");
+        EntityManager em = this.emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Vendedor vendedor = em.find(Vendedor.class, id);
+            if (vendedor != null) {
+                em.remove(vendedor);
+                em.getTransaction().commit();
+                return "Vendedor excluído com sucesso!";
+            } else {
+                return "Vendedor não encontrado!";
+            }
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            LOGGER.severe(e.getMessage());
+            e.printStackTrace();
+            return "Erro ao excluir Vendedor!";
+        } finally {
+            em.close();
+        }
     }
-
 }
